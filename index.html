@@ -644,7 +644,7 @@
 <div class="column">
 <div class="sourceCode cell-code" id="cb8" data-code-line-numbers="7-13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggseqdplot</span>(actcal.seq,</span>
 <span id="cb8-2"><a href="#cb8-2"></a>           <span class="at">border =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="co"># Built-in Constant (months abbreviations) for axis labels</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="co"># Built-in months abbreviations for axis labels</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> month.abb) <span class="sc">+</span> </span>
 <span id="cb8-5"><a href="#cb8-5"></a>  <span class="co"># change the color palette (fill and border color)</span></span>
 <span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">scale_fill_discrete_sequential</span>(<span class="st">"heat"</span>) <span class="sc">+</span></span>
@@ -756,13 +756,13 @@
 <div class="sourceCode cell-code" id="cb15" data-code-line-numbers="1-4,9,10"><pre class="sourceCode numberSource r code-overflow-wrap number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># using {ggh4x} to get varying plot sizes</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a></span>
 <span id="cb15-3"><a href="#cb15-3"></a><span class="co"># a vector storing the heights of the subplots   </span></span>
-<span id="cb15-4"><a href="#cb15-4"></a>rowheight <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">fct_drop</span>(actcal<span class="sc">$</span>sex))<span class="sc">/</span><span class="fu">nrow</span>(actcal.seq)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>hghts <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">fct_drop</span>(actcal<span class="sc">$</span>sex))<span class="sc">/</span><span class="fu">nrow</span>(actcal.seq)</span>
 <span id="cb15-5"><a href="#cb15-5"></a></span>
 <span id="cb15-6"><a href="#cb15-6"></a><span class="fu">ggseqiplot</span>(actcal.seq, </span>
 <span id="cb15-7"><a href="#cb15-7"></a>           <span class="at">sortv =</span> <span class="st">"from.end"</span>, </span>
 <span id="cb15-8"><a href="#cb15-8"></a>           <span class="at">group =</span> actcal<span class="sc">$</span>sex,</span>
 <span id="cb15-9"><a href="#cb15-9"></a>           <span class="at">facet_ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">force_panelsizes</span>(<span class="at">rows =</span> rowheight) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">force_panelsizes</span>(<span class="at">rows =</span> hghts) <span class="sc">+</span></span>
 <span id="cb15-11"><a href="#cb15-11"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"lines"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">

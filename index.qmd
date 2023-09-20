@@ -232,7 +232,7 @@ ggseqdplot(actcal.seq,
 #| output-location: column
 ggseqdplot(actcal.seq,
            border = TRUE) +
-  # Built-in Constant (months abbreviations) for axis labels
+  # Built-in months abbreviations for axis labels
   scale_x_discrete(labels = month.abb) + 
   # change the color palette (fill and border color)
   scale_fill_discrete_sequential("heat") +
@@ -327,13 +327,13 @@ ggseqiplot(actcal.seq,
 # using {ggh4x} to get varying plot sizes
 
 # a vector storing the heights of the subplots   
-rowheight <- table(fct_drop(actcal$sex))/nrow(actcal.seq)
+hghts <- table(fct_drop(actcal$sex))/nrow(actcal.seq)
 
 ggseqiplot(actcal.seq, 
            sortv = "from.end", 
            group = actcal$sex,
            facet_ncol = 1) +
-  force_panelsizes(rows = rowheight) +
+  force_panelsizes(rows = hghts) +
   theme(panel.spacing = unit(1, "lines"))
 ```
 
