@@ -1,0 +1,429 @@
+---
+format: 
+  revealjs:
+    theme: [simple, custom.scss]
+    footer: "[Marcel Raab](https://marcelraab.de/)&ensp;|&ensp;SAA Webinar Series &ensp;|&ensp;September 2023"
+    logo: "icon.png"
+    width: 1920
+    height: 1080
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
+    retina: 1
+    dpi: 300
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 8
+  fig-height: 6
+---
+
+#   {ggseqplot}
+
+      ggplotify sequence plots
+
+![](icon.png){.absolute bottom="0" left="0"}
+
+```{r}
+#| echo: false
+library(pacman)
+p_load(
+  tidyverse,
+  colorspace, ggthemes, hrbrthemes, ggh4x, patchwork,
+  fontawesome, showtext, 
+  glue,
+  TraMineR, ggseqplot
+  ) 
+
+```
+
+## Motivation
+
+<br>
+
+-   [{TraMineR}]{.inlinecode}'s default plots appearance [almost]{.rn rn-color="red" rn-type="box"} publication-ready
+-   **But**: virtually always some adjustments are necessary
+-   Requires some knowledge of base R's [{plot}]{.inlinecode}
+-   However, today most (new) R users prefer [{ggplot2}]{.inlinecode}
+
+## Motivation
+
+<br>
+
+-   **Goals**:
+
+    -   Provide a package that uses [{ggplot2}]{.inlinecode} to render sequence plots
+    -   and that allows for usnig [{ggplot2}]{.inlinecode} functions and extensions to change the plot appearance
+
+-   **Tasks**:
+
+    -   reshape sequence data into format required by [{ggplot2}]{.inlinecode} (usually long data format)
+    -   use appropriate [geom\_\*]{.inlinecode} functions to rebuild [seqplot]{.inlinecode} functions
+
+<br>
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+install.packages("ggseqplot")
+library(ggseqplot)
+```
+
+## What we can do with [{ggseqplot}]{.inlinecode}
+
+<br>
+
+::: smalltab
++---------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| Summarization plots       | TraMineR functions                                           | ggseqplot function                                                               | ggplot2 function                                                      |
++===========================+==============================================================+==================================================================================+=======================================================================+
+| State Distribution Plot   | [`seqdplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html)  | [`ggseqdplot`](https://maraab23.github.io/ggseqplot/reference/ggseqdplot.html)   | [`geom_bar`](https://ggplot2.tidyverse.org/reference/geom_bar.html)   |
+|                           |                                                              |                                                                                  |                                                                       |
+|                           | [`seqstatd`](https://rdrr.io/pkg/TraMineR/man/seqstatd.html) |                                                                                  |                                                                       |
++---------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| Entropy Line Plot         | [`seqHtplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html) | [`ggseqeplot`](https://maraab23.github.io/ggseqplot/reference/ggseqeplot.html)   | [`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html) |
+|                           |                                                              |                                                                                  |                                                                       |
+|                           | [`seqstatd`](https://rdrr.io/pkg/TraMineR/man/seqstatd.html) |                                                                                  |                                                                       |
++---------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| Modal State Sequence Plot | [`seqmsplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html) | [`ggseqmsplot`](https://maraab23.github.io/ggseqplot/reference/ggseqmsplot.html) | [`geom_bar`](https://ggplot2.tidyverse.org/reference/geom_bar.html)   |
+|                           |                                                              |                                                                                  |                                                                       |
+|                           | [`seqmodst`](https://rdrr.io/pkg/TraMineR/man/seqmodst.html) |                                                                                  |                                                                       |
++---------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| Mean Time Plot            | [`seqmtplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html) | [`ggseqmtplot`](https://maraab23.github.io/ggseqplot/reference/ggseqmtplot.html) | [`geom_bar`](https://ggplot2.tidyverse.org/reference/geom_bar.html)   |
+|                           |                                                              |                                                                                  |                                                                       |
+|                           | [`seqmeant`](https://rdrr.io/pkg/TraMineR/man/seqmeant.html) |                                                                                  |                                                                       |
++---------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| Transition Rate Plot      | [`seqtrate`](https://rdrr.io/pkg/TraMineR/man/seqtrate.html) | [`ggseqtrplot`](https://maraab23.github.io/ggseqplot/reference/ggseqtrplot.html) | [`geom_tile`](https://ggplot2.tidyverse.org/reference/geom_tile.html) |
++---------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+:::
+
+## What we can do with [{ggseqplot}]{.inlinecode}
+
+<br>
+
+::: smalltab
++----------------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+| Representation plots             | TraMineR functions                                           | ggseqplot functions                                                              | ggplot2 and related functions                                                                        |
++==================================+==============================================================+==================================================================================+======================================================================================================+
+| Sequence Index Plot              | [`seqiplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html)  | [`ggseqiplot`](https://maraab23.github.io/ggseqplot/reference/ggseqiplot.html)   | [`geom_rect`](https://ggplot2.tidyverse.org/reference/geom_tile.html)                                |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  |                                                              |                                                                                  | [`ggh4x::facetted_pos_scales`](https://teunbrand.github.io/ggh4x/reference/facetted_pos_scales.html) |
++----------------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+| Sequence Frequency Plot          | [`seqfplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html)  | [`ggseqfplot`](https://maraab23.github.io/ggseqplot/reference/ggseqfplot.html)   | [`seqtab`](https://rdrr.io/pkg/TraMineR/man/seqtab.html)                                             |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  |                                                              | `(ggseqiplot)`                                                                   | [`geom_rect`](https://ggplot2.tidyverse.org/reference/geom_tile.html)                                |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  |                                                              |                                                                                  | [`ggh4x::facetted_pos_scales`](https://teunbrand.github.io/ggh4x/reference/facetted_pos_scales.html) |
++----------------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+| Representative Sequence Plot     | [`seqrplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html)  | [`ggseqrplot`](https://maraab23.github.io/ggseqplot/reference/ggseqrplot.html)   | [`geom_rect`](https://ggplot2.tidyverse.org/reference/geom_tile.html)                                |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  | [`seqrep`](https://rdrr.io/pkg/TraMineR/man/seqrep.html)     | `(ggseqiplot)`                                                                   | [`ggrepel::geom_label_repel`](https://ggrepel.slowkow.com/reference/geom_text_repel)                 |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  |                                                              |                                                                                  | [`ggrepel::geom_text_repel`](https://ggrepel.slowkow.com/reference/geom_text_repel)                  |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  |                                                              |                                                                                  | [`ggtext::element_markdown`](https://wilkelab.org/ggtext/reference/element_markdown.html)            |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  |                                                              |                                                                                  | [`patchwork`](https://patchwork.data-imaginist.com/reference/patchwork-package.html)                 |
++----------------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+| Relative Frequency Sequence Plot | [`seqrfplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html) | ::: {.fragment .strike}                                                          | [`geom_rect`](https://ggplot2.tidyverse.org/reference/geom_tile.html)                                |
+|                                  |                                                              | [`ggseqrfplot`](https://maraab23.github.io/ggseqplot/reference/ggseqrfplot.html) |                                                                                                      |
+|                                  |                                                              | :::                                                                              | [`geom_boxplot`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)                          |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  |                                                              | `(ggseqiplot)`                                                                   | [`patchwork`](https://patchwork.data-imaginist.com/reference/patchwork-package.html)                 |
++----------------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+:::
+
+## Example
+
+<br>
+
+We use the well-known example data from [{TraMineR}]{.inlinecode} to render some plots.
+
+<br>
+
+```{r}
+data(actcal)
+
+set.seed(1)
+actcal <- actcal[sample(nrow(actcal),300),]
+
+actcal.lab <- c(
+  "> 37 hours", "19-36 hours", 
+  "1-18 hours", "no work"
+  )
+
+actcal.seq <- seqdef(
+  actcal,
+  13:24,
+  labels = actcal.lab
+  )
+```
+
+## State distribution plots
+
+<br>
+
+::: {layout-ncol="2"}
+```{r}
+#| label: dplot
+#| fig-cap: "TraMineR dplot - default version"
+#| code-line-numbers: false
+seqdplot(actcal.seq)
+```
+
+```{r}
+#| label: ggdplot
+#| fig-cap: "ggseqplot dplot - default version"
+#| code-line-numbers: false
+ggseqdplot(actcal.seq)
+
+```
+:::
+
+## State distribution plots
+
+<br>
+
+```{r}
+#| label: ggdplot-2
+#| code-line-numbers: "2"
+#| output-location: column
+ggseqdplot(actcal.seq,
+           border = TRUE)
+```
+
+## State distribution plots
+
+<br>
+
+```{r}
+#| label: ggdplot-3
+#| code-line-numbers: "3,4"
+#| output-location: column
+ggseqdplot(actcal.seq,
+           border = TRUE) +
+  # Built-in months abbreviations for axis labels
+  scale_x_discrete(labels = month.abb)
+```
+
+## State distribution plots
+
+<br>
+
+```{r}
+#| label: ggdplot-4
+#| code-line-numbers: "5,6"
+#| output-location: column
+ggseqdplot(actcal.seq,
+           border = TRUE) +
+  # Built-in months abbreviations for axis labels
+  scale_x_discrete(labels = month.abb) + 
+  # change the color palette (fill and border color)
+  scale_fill_discrete_sequential("heat")
+```
+
+## State distribution plots
+
+<br>
+
+```{r}
+#| label: ggdplot-5
+#| code-line-numbers: "7-13"
+#| output-location: column
+ggseqdplot(actcal.seq,
+           border = TRUE) +
+  # Built-in Constant (months abbreviations) for axis labels
+  scale_x_discrete(labels = month.abb) + 
+  # change the color palette (fill and border color)
+  scale_fill_discrete_sequential("heat") +
+  # apply & adjust alternative theme
+  theme_ipsum() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    legend.text = element_text(size = 11)
+    )
+```
+
+## State distribution plots
+
+```{r}
+#| label: ggdplot-6
+#| code-line-numbers: "2,3"
+#| fig-width: 16
+ggseqdplot(actcal.seq, border = TRUE,
+           group = actcal$sex,   # Group by gender
+           dissect = "row") +    # separate plot for each state
+  scale_x_discrete(labels = month.abb) +
+  scale_fill_discrete_sequential("heat")
+```
+
+## Sequence index plots
+
+<br>
+
+::: {layout-ncol="2"}
+```{r}
+#| label: iplot
+#| fig-cap: "TraMineR iplot"
+#| code-line-numbers: false
+seqIplot(actcal.seq, sortv = "from.end")
+```
+
+```{r}
+#| label: ggiplot
+#| fig-cap: "ggseqdplot iplot"
+#| code-line-numbers: false
+ggseqiplot(actcal.seq, sortv = "from.end")
+
+```
+:::
+
+## Sequence index plots
+
+<br>
+
+```{r}
+#| label: ggiplot-1
+#| output-location: column
+ggseqiplot(actcal.seq, 
+           sortv = "from.end")
+```
+
+## Sequence index plots
+
+<br>
+
+```{r}
+#| label: ggiplot-2
+#| output-location: column
+ggseqiplot(actcal.seq, 
+           sortv = "from.end", 
+           group = actcal$sex)
+```
+
+## Sequence index plots
+
+<br>
+
+```{r}
+#| label: ggiplot-3
+#| output-location: column
+ggseqiplot(actcal.seq, 
+           sortv = "from.end", 
+           group = actcal$sex,
+           facet_scale = "fixed")
+```
+
+## Sequence index plots
+
+<br>
+
+```{r}
+#| label: ggiplot-4
+#| output-location: column
+#| code-line-numbers: "1-4,9,10"
+#| code-overflow: wrap
+# using {ggh4x} to get varying plot sizes
+
+# a vector storing the heights of the subplots   
+rowheight <- table(fct_drop(actcal$sex))/nrow(actcal.seq)
+
+ggseqiplot(actcal.seq, 
+           sortv = "from.end", 
+           group = actcal$sex,
+           facet_ncol = 1) +
+  force_panelsizes(rows = rowheight) +
+  theme(panel.spacing = unit(1, "lines"))
+```
+
+## Sequence index plots
+
+<br>
+
+```{r}
+#| label: ggiplot-5
+#| output-location: column
+#| code-line-numbers: "10,11"
+ggseqiplot(actcal.seq, sortv = "from.end") + 
+  # Use months abbreviations for axis labels
+  scale_x_discrete(labels = month.abb) + 
+  # change the fill and border color
+  scale_fill_discrete_sequential("heat") +
+  scale_color_discrete_sequential("heat") +
+  # add a title and a axis title
+  labs(x = "Month",
+       title = "Piccarreta-flavored Index Plot") +
+  # let the time run "bottom-up" instead of "left-right"
+  coord_flip() +
+  # Change the position and size 
+  # of the title and the legend position
+  theme(legend.position = "top",
+        plot.title = element_text(size = 30),
+        plot.title.position = "plot")
+```
+
+## Representative sequence index plots
+
+::: {layout-ncol="2"}
+```{r}
+#| label: rplot
+#| fig-cap: "TraMineR rplot"
+# Compute dissimilarity matrix
+lcs.dis <- seqdist(actcal.seq, method="LCS")
+
+seqrplot(actcal.seq, diss = lcs.dis, coverage = .7)
+```
+
+```{r}
+#| label: ggrplot
+#| fig-cap: "ggseqdplot rplot"
+# Compute dissimilarity matrix
+lcs.dis <- seqdist(actcal.seq, method="LCS")
+
+ggseqrplot(actcal.seq, diss = lcs.dis, coverage = .7, border = TRUE)
+```
+:::
+
+## Transition rate plots
+
+```{r}
+#| label: ggtrplot
+ggseqtrplot(actcal.seq, 
+            group = actcal$sex)
+```
+
+## Some words of caution
+
+<br>
+
+::: callout-warning
+-   I am working on this package **alone** in my **spare time** and I am a **novice** R developer
+-   Double check ggseqplots by comparing them to the TraMineR plots
+:::
+
+<br>
+
+::: {.callout-important title="Known issues"}
+-   Don't use ggseqrfplot until the current issue is fixed
+-   Dependencies are not specified correctly: update tidyverse package(s)
+:::
+
+## Future plans
+
+<br>
+
+-   **High priority:** Fix known issues (rfplot; dependencies)
+-   **Low priority:** include additional plot types and revise current functions
+
+. . .
+
+![](coordinateplot.png){fig-align="center" width="700"}
+
+------------------------------------------------------------------------
+
+::: {.absolute bottom="0" right="0" height="400"}
+[`r fa("link")` [maraab23.github.io/ggseqplot](https://maraab23.github.io/ggseqplot/)]{.bigger}
+
+[`r fa("envelope")` [marcel.raab\@ifb.uni-bamberg.de](mailto:marcel.raab@ifb.uni-bamberg.de)]{.bigger}
+:::

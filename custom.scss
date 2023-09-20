@@ -1,0 +1,40 @@
+/*-- scss:defaults --*/
+$code-block-bg: #F7F8F9;
+$theme-fall: #981108;
+$presentation-font-size-root: 44px;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
+
+$font-family-monospace: 'Fira Code', monospace;
+$body-bg:#E7E0DC;
+$presentation-heading-color: $theme-fall;
+$link-color: $theme-fall;
+$body-color: #64291F;
+$link-color: #E45932;
+$code-block-border-color: $body-color;
+
+/*-- scss:rules --*/
+
+.smalltab {
+  font-size: 33px;
+}
+
+.bigger {
+  font-size: 55px;
+}
+
+.callout {
+  background-color: #FFFFFF;
+}
+
+.callout-caption {
+  color: $body-color;
+}
+
+
+.inlinecode {
+  color: $link-color;
+  font-family: $font-family-monospace;
+  font-weight: bold;
+}
