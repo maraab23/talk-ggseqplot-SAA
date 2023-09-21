@@ -1,10 +1,10 @@
-# {ggseqplot} - ggplotify sequence plots<img src="icon.png" align="right" height="139"/><br>Talk for the SAA Webinar Series | September 2023
+# {ggseqplot} - ggplotify sequence plots<img src="icon.png" align="right" height="139"/><br>SAA Webinar Series | September 2023
 **Marcel Raab**
 
 [![ORCID](https://img.shields.io/badge/orcid-A6CE39?style=for-the-badge&logo=orcid&logoColor=white)](https://orcid.org/0000-0002-3097-1591)
 [![Google Scholar](https://img.shields.io/badge/Google_Scholar-4285F4?style=for-the-badge&logo=google-scholar&logoColor=white)](https://scholar.google.de/citations?user=y2gQ3DUAAAAJ)
 
-This repository includes the materials for my talk on the `{ggseqplot}` package in the Sequence Analysis Association webinar series. The presentation delineates which plot types can be rendered with `{ggseqplot}`, showcases a few examples, and mentions some known issues and plans for the further development of the package.
+This repository includes the materials for my talk on the `{ggseqplot}` package in the [Sequence Analysis Association](https://sequenceanalysis.org) webinar series. The presentation delineates which plot types can be rendered with `{ggseqplot}`, showcases a few examples, and mentions some known issues and plans for the further development of the package.
 
 ## Resources
 - [Slides](https://maraab23.github.io/talk-ggseqplot-SAA/#/ggseqplot)
