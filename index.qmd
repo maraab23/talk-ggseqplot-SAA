@@ -20,7 +20,7 @@ execute:
 
 #   {ggseqplot}
 
-      ggplotify sequence plots
+      ggplotify sequence plots *(updated slides)*
 
 ![](icon.png){.absolute bottom="0" left="0"}
 
@@ -53,7 +53,7 @@ p_load(
 -   **Goals**:
 
     -   Provide a package that uses [{ggplot2}]{.inlinecode} to render sequence plots
-    -   and that allows for usnig [{ggplot2}]{.inlinecode} functions and extensions to change the plot appearance
+    -   and that allows for using [{ggplot2}]{.inlinecode} functions and extensions to change the plot appearance
 
 -   **Tasks**:
 
@@ -125,11 +125,13 @@ library(ggseqplot)
 |                                  |                                                              |                                                                                  |                                                                                                      |
 |                                  |                                                              |                                                                                  | [`patchwork`](https://patchwork.data-imaginist.com/reference/patchwork-package.html)                 |
 +----------------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
-| Relative Frequency Sequence Plot | [`seqrfplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html) | ::: {.fragment .strike}                                                          | [`geom_rect`](https://ggplot2.tidyverse.org/reference/geom_tile.html)                                |
-|                                  |                                                              | [`ggseqrfplot`](https://maraab23.github.io/ggseqplot/reference/ggseqrfplot.html) |                                                                                                      |
-|                                  |                                                              | :::                                                                              | [`geom_boxplot`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)                          |
+| Relative Frequency Sequence Plot | [`seqrfplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html) | <div>                                                                            | [`geom_rect`](https://ggplot2.tidyverse.org/reference/geom_tile.html)                                |
 |                                  |                                                              |                                                                                  |                                                                                                      |
-|                                  |                                                              | `(ggseqiplot)`                                                                   | [`patchwork`](https://patchwork.data-imaginist.com/reference/patchwork-package.html)                 |
+|                                  |                                                              | [`ggseqrfplot`](https://maraab23.github.io/ggseqplot/reference/ggseqrfplot.html) | [`geom_boxplot`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)                          |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  |                                                              | </div>                                                                           | [`patchwork`](https://patchwork.data-imaginist.com/reference/patchwork-package.html)                 |
+|                                  |                                                              |                                                                                  |                                                                                                      |
+|                                  |                                                              | `(ggseqiplot)`                                                                   |                                                                                                      |
 +----------------------------------+--------------------------------------------------------------+----------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
 :::
 
@@ -272,7 +274,7 @@ seqIplot(actcal.seq, sortv = "from.end")
 
 ```{r}
 #| label: ggiplot
-#| fig-cap: "ggseqdplot iplot"
+#| fig-cap: "ggseqplot iplot"
 #| code-line-numbers: false
 ggseqiplot(actcal.seq, sortv = "from.end")
 
@@ -409,11 +411,30 @@ ggseqtrplot(actcal.seq,
 -   Dependencies are not specified correctly: update tidyverse package(s)
 :::
 
+
+## Some words of caution
+
+<br>
+
+::: callout-warning
+-   I am working on this package **alone** in my **spare time** and I am a **novice** R developer
+-   Double check ggseqplots by comparing them to the TraMineR plots
+:::
+
+<br>
+
+::: {.callout-important title="Known issues"}
+-   ~~Don't use ggseqrfplot until the current issue is fixed~~
+-   ~~Dependencies are not specified correctly: update tidyverse package(s)~~
+-   Both issues should be fixed after update to **version 0.8.3** (on CRAN since 2023-09-22)
+:::
+
+
 ## Future plans
 
 <br>
 
--   **High priority:** Fix known issues (rfplot; dependencies)
+-   **High priority:** ~~Fix known issues (rfplot; dependencies)~~
 -   **Low priority:** include additional plot types and revise current functions
 
 . . .

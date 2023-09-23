@@ -390,7 +390,7 @@
 <section>
 <section id="ggseqplot" class="title-slide slide level1 center">
 <h1>  {ggseqplot}</h1>
-<p>      ggplotify sequence plots</p>
+<p>      ggplotify sequence plots <em>(updated slides)</em></p>
 <p><img data-src="icon.png" class="absolute" style="left: 0px; bottom: 0px; "></p>
 <div class="cell">
 
@@ -413,7 +413,7 @@
 <li><p><strong>Goals</strong>:</p>
 <ul>
 <li>Provide a package that uses <span class="inlinecode">{ggplot2}</span> to render sequence plots</li>
-<li>and that allows for usnig <span class="inlinecode">{ggplot2}</span> functions and extensions to change the plot appearance</li>
+<li>and that allows for using <span class="inlinecode">{ggplot2}</span> functions and extensions to change the plot appearance</li>
 </ul></li>
 <li><p><strong>Tasks</strong>:</p>
 <ul>
@@ -524,7 +524,7 @@
 <tr class="even">
 <td>Relative Frequency Sequence Plot</td>
 <td><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html"><code>seqrfplot</code></a></td>
-<td><div class="fragment strike">
+<td><div>
 <p><a href="https://maraab23.github.io/ggseqplot/reference/ggseqrfplot.html"><code>ggseqrfplot</code></a></p>
 </div>
 <p><code>(ggseqiplot)</code></p></td>
@@ -695,7 +695,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="index_files/figure-revealjs/ggiplot-1.png" width="2400"></p>
-<p></p><figcaption>ggseqdplot iplot</figcaption><p></p>
+<p></p><figcaption>ggseqplot iplot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -879,11 +879,49 @@
 </div>
 </div>
 </section>
+<section id="some-words-of-caution-1" class="slide level2">
+<h2>Some words of caution</h2>
+<p><br></p>
+<div class="callout callout-warning callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>I am working on this package <strong>alone</strong> in my <strong>spare time</strong> and I am a <strong>novice</strong> R developer</li>
+<li>Double check ggseqplots by comparing them to the TraMineR plots</li>
+</ul>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><del>Don’t use ggseqrfplot until the current issue is fixed</del></li>
+<li><del>Dependencies are not specified correctly: update tidyverse package(s)</del></li>
+<li>Both issues should be fixed after update to <strong>version 0.8.3</strong> (on CRAN since 2023-09-22)</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
 <section id="future-plans" class="slide level2">
 <h2>Future plans</h2>
 <p><br></p>
 <ul>
-<li><strong>High priority:</strong> Fix known issues (rfplot; dependencies)</li>
+<li><strong>High priority:</strong> <del>Fix known issues (rfplot; dependencies)</del></li>
 <li><strong>Low priority:</strong> include additional plot types and revise current functions</li>
 </ul>
 <div class="fragment">
