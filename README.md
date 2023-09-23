@@ -7,7 +7,7 @@
 This repository includes the materials for my talk on the `{ggseqplot}` package in the [Sequence Analysis Association](https://sequenceanalysis.org) webinar series. The presentation delineates which plot types can be rendered with `{ggseqplot}`, showcases a few examples, and mentions some known issues and plans for the further development of the package.
 
 ## Resources
-- [Slides](https://maraab23.github.io/talk-ggseqplot-SAA/#/ggseqplot)
+- [Slides *(updated due to release of `ggseqplot 0.8.3`)*](https://maraab23.github.io/talk-ggseqplot-SAA/#/ggseqplot)
 - [ggseqplot website](https://maraab23.github.io/ggseqplot/)
 - [ggseqplot vignette](https://maraab23.github.io/ggseqplot/articles/ggseqplot.html)
 - [SAA ggseqplot blogpost](https://sequenceanalysis.org/2022/08/05/ggseqplot-ggplotify-sequence-plots/)
