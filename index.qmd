@@ -14,7 +14,7 @@ format:
         <meta name="twitter:url" content="https://maraab23.github.io/talk-ggseqplot-SAA/#/ggseqplot/"/>
         <meta name="twitter:image" content="https://raw.githubusercontent.com/maraab23/talk-ggseqplot-SAA/main/preview.png"/>
         <meta name="twitter:image:alt" content="Title slide of {ggseqplot} - ggplotify sequence plots presented at SAA webinar series -  Sep. 2023"/>
-        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:card" content="summary"/>
         <meta name="twitter:creator" content="@RaabM"/>
         <meta name="twitter:site" content="@RaabM"/>
         <meta property="og:title" content="{ggseqplot} - ggplotify sequence plots"/>
